@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Investigations</title>
+</head>
+<body>
+
+<a href="{% url 'investigation-add' %}">Create new investigation.</a>
+
+<ul>
+    {% for investigation in object_list %}
+
+        <li>{{ investigation.title }}</li>
+
+    {% empty %}
+        <li>No articles yet.</li>
+    {% endfor %}
+
+
+</ul>
+</body>
+</html>
