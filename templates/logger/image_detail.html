@@ -1,5 +1,7 @@
 {% extends 'logger/base.html' %}
 
+{% load staticfiles %}
+
 {% load markdown_deux_tags %}
 
 {% block title %}
@@ -8,26 +10,13 @@ Image
 
 {% block content %}
 
-    <h2>{{ log.last_edit }}</h2>
+    <h2>{{ image.title }}</h2>
 
-    <h4>Created {{ log.created }}</h4>
+    <img class=".img-responsive center-block" src="{% static image.image_path %}">
 
-    <p>{{ log.summary }}</p>
+    <p>{{ image.caption|markdown }}</p>
 
-    <a href="{{ log.investigation.get_absolute_url }}"><h3>{{ log.investigation.title }}</h3></a>
-
-    <p>{{ log.investigation.question|safe }}</p>
-
-    <hr>
-
-    <p>{{ log.text|markdown }}</p>
-
-    <br>
-
-    <a href="
-    {% url 'investigation-logs-update' log.pk %}"
-       class="btn  btn-primary">
-    <span class="glyphicon glyphicon-pencil"></span></a>
-
+    <input onClick="this.select();" value="{% static image.image_path %}"
+           class="form-control"/>
 
 {% endblock %}

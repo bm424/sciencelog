@@ -81,7 +81,18 @@ class LogDetail(DetailView):
 
 class ImageList(ListView):
     model = models.Image
+    context_object_name = 'images'
+
+
+class ImageDetail(DetailView):
+    model = models.Image
     context_object_name = 'image'
 
 
+class ImageCreate(CreateView):
+    model = models.Image
+    fields = '__all__'
 
+    def form_valid(self, form):
+        form.instance.slug = slugify(form.instance.title)
+        return super(ImageCreate, self).form_valid(form)

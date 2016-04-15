@@ -3,21 +3,22 @@
 {% load widget_tweaks %}
 
 {% block title %}
-    Edit Log
+    Edit Image
 {% endblock %}
 
 {% block content %}
 
-<form method="post" class="post-form">{% csrf_token %}
+<form enctype="multipart/form-data" method="post" class="post-form">{% csrf_token %}
     {% for field in form %}
             <fieldset class="form-group">
                 {{ field.errors }}
                 {{ field.label_tag }}
-                {% if "boolean" not in field|field_type %}
+                {% if "boolean" not in field|field_type and "image" not in field|field_type %}
                     {{ field|add_class:"form-control" }}
-                {% endif %}
-                {% if field|field_type == "booleanfield" %}
+                {% elif field|field_type == "booleanfield" %}
                     {{ field|add_class:"checkbox" }}
+                {% elif "image" in field|field_type %}
+                    {{ field }}
                 {% endif %}
             </fieldset>
     {% endfor %}

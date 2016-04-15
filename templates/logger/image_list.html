@@ -1,0 +1,37 @@
+{% extends 'logger/base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}
+Images
+{% endblock %}
+
+{% block content %}
+
+    <a href="{% url 'images-add' %}" class="btn btn-primary
+                btn-lg"><span
+                        class="glyphicon
+                glyphicon-plus"></span> New Image</a>
+
+    <div class="container">
+
+
+
+        <div class="row">
+
+            {% for image in images %}
+
+                <div class="col-lg-3 col-md-4 col-xs-6">
+                    <a href="{{ image.get_absolute_url }}" class="thumbnail">
+                        <img src="{% static image.image_path %}" class="img-responsive">
+                    </a>
+                    <p>{{ image.title }}</p>
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+{% endblock %}

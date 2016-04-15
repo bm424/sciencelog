@@ -18,16 +18,14 @@ Log Entry
 
     <p>{{ log.investigation.question|safe }}</p>
 
-    <hr>
-
-    <p>{{ log.text|markdown }}</p>
-
-    <br>
-
     <a href="
     {% url 'investigation-logs-update' log.pk %}"
        class="btn  btn-primary">
     <span class="glyphicon glyphicon-pencil"></span></a>
+
+    <hr>
+
+    <p>{{ log.text|markdown }}</p>
 
 
 {% endblock %}

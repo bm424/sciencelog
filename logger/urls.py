@@ -22,6 +22,9 @@ urlpatterns = [
         name='investigation-logs-update'),
     url(r'logs/$', views.LogList.as_view(), name='logs'),
     url(r'logs/add/$', views.LogCreate.as_view(), name='logs-add'),
-    url(r'images/$', views.ImageList.as_view(), name='images')
+    url(r'images/$', views.ImageList.as_view(), name='images'),
+    url(r'images/add/', views.ImageCreate.as_view(), name='images-add'),
+    url(r'images/(?P<slug>[-\w]+)/', views.ImageDetail.as_view(),
+        name='images-detail'),
 
 ]

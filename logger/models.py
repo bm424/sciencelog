@@ -20,6 +20,9 @@ class Investigation(models.Model):
     def get_absolute_url(self):
         return reverse('investigation-detail', kwargs={'slug': self.slug})
 
+    def get_latest_log(self):
+        return self.log_set.latest('last_edit')
+
 
 class Log(models.Model):
     created = models.DateTimeField(auto_now_add=True, editable=False)
@@ -33,7 +36,8 @@ class Log(models.Model):
         ordering = ['-last_edit']
 
     def __str__(self):
-        return self.created.strftime("%Y/%m/%d %H:%M")
+        return self.created.strftime("%Y/%m/%d " + " ".join(
+            self.summary.split()[:10]) + "...")
 
     def get_absolute_url(self):
         return reverse('investigation-logs-detail', kwargs={'slug':
@@ -41,17 +45,21 @@ class Log(models.Model):
 
 
 class Image(models.Model):
-    log = models.ForeignKey(Log)
+    log = models.ManyToManyField(Log, blank=True)
     image_path = models.ImageField(upload_to="images/%Y/%m/%d")
     title = models.CharField(max_length=32)
     caption = models.TextField()
     url = models.CharField("Url", max_length=128, blank=True)
+    slug = models.SlugField(unique=True, editable=False)
 
     def __str__(self):
         if self.pk is not None:
             return "{{{{ {} }}}}".format(self.pk)
         else:
             return "deleted image"
+
+    def get_absolute_url(self):
+        return reverse('images-detail', kwargs={'slug': self.slug})
 
 
 
