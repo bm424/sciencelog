@@ -1,0 +1,33 @@
+{% extends 'logger/base.html' %}
+
+{% load markdown_deux_tags %}
+
+{% block title %}
+Image
+{% endblock %}
+
+{% block content %}
+
+    <h2>{{ log.last_edit }}</h2>
+
+    <h4>Created {{ log.created }}</h4>
+
+    <p>{{ log.summary }}</p>
+
+    <a href="{{ log.investigation.get_absolute_url }}"><h3>{{ log.investigation.title }}</h3></a>
+
+    <p>{{ log.investigation.question|safe }}</p>
+
+    <hr>
+
+    <p>{{ log.text|markdown }}</p>
+
+    <br>
+
+    <a href="
+    {% url 'investigation-logs-update' log.pk %}"
+       class="btn  btn-primary">
+    <span class="glyphicon glyphicon-pencil"></span></a>
+
+
+{% endblock %}

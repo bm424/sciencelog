@@ -1,0 +1,17 @@
+{% extends 'logger/base.html' %}
+
+{% block title %}
+Logs
+{% endblock %}
+
+{% block content %}
+
+{% for log in logs %}
+<a href="{{ log.get_absolute_url }}"><h2>{{ log.last_edit }}</h2></a>
+    <small>Created {{ log.created }}</small>
+    <p>{{ log.summary }}</p>
+{% empty %}
+<h2>No logs found.</h2>
+{% endfor %}
+
+{% endblock %}

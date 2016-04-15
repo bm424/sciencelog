@@ -1,16 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Investigation Detail</title>
-</head>
-<body>
-<h1>{{ object.title }}</h1>
+{% extends 'logger/base.html' %}
 
-<h2>{{ object.question }}</h2>
+{% load markdown_deux_tags %}
 
-<h3>Started {{ object.opened|date:"d M Y" }}</h3>
+{% block title %}
+Investigation
+{% endblock %}
 
-<p>{{ object.discussion }}</p>
-</body>
-</html>
+{% block content %}
+
+    <h2>{{ investigation.title }}</h2>
+
+    <h3>{{ investigation.question }}</h3>
+
+    <h4>Started {{ investigation.opened|date:"d M Y" }}</h4>
+
+    <p>{{ investigation.hypothesis|safe }}</p>
+
+    <p>{{ investigation.discussion|safe }}</p>
+
+    <br>
+
+    <a href="{% url 'investigation-logs-add' investigation.slug %}" class="btn
+    btn-primary">New Log</a>
+
+    <hr>
+
+    {% for log in investigation.log_set.all %}
+
+        <h3><a href="{{ log.get_absolute_url }}">{{ log.last_edit }}</a></h3>
+
+        <small>Created {{ log.created }}</small>
+
+        <p>{{ log.summary }}</p>
+
+    {% endfor %}
+
+{% endblock %}

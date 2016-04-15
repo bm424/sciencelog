@@ -1,23 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Investigations</title>
-</head>
-<body>
+{% extends 'logger/base.html' %}
 
-<a href="{% url 'investigation-add' %}">Create new investigation.</a>
+{% block title %}
+Investigations
+{% endblock %}
 
-<ul>
-    {% for investigation in object_list %}
+{% block content %}
 
-        <li>{{ investigation.title }}</li>
+{% for investigation in investigations %}
+<h2><a href="{{ investigation.get_absolute_url }}">{{ investigation.title }}</a></h2>
+    <p>{{ investigation.question }}</p>
+    <p></p>
 
-    {% empty %}
-        <li>No articles yet.</li>
-    {% endfor %}
+{% empty %}
+<h2>No articles yet.</h2>
+{% endfor %}
 
-
-</ul>
-</body>
-</html>
+{% endblock %}
